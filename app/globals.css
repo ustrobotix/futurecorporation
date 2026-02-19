@@ -1,26 +1,158 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
+  /* --- PALETTE SYSTEM --- */
+  /* Brand Core */
+  --color-brand-primary: #2596be;
+  --color-brand-secondary: #0f172a;
+  --color-brand-accent: #00f3ff;
+
+  /* Custom Utilities */
+  --color-electric-blue: #2596be;
+  --color-electric-blue-dim: #1d7a9b;
+  --color-navy-900: #0f172a;
+
+  /* Semantic Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-surface: var(--surface);
+  --color-surface-highlight: var(--surface-highlight);
+  --color-border: var(--border);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* --- TYPOGRAPHY SYSTEM --- */
+  --font-sans: var(--font-outfit);
+  --font-mono: var(--font-jetbrains-mono);
+
+  /* Fluid Type Scale (Desktop) */
+  --text-hero: 4.5rem;
+  --text-h1: 3.5rem;
+  --text-h2: 2.5rem;
+  --text-h3: 1.75rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+
+  /* --- SPACING SYSTEM (Fluid) --- */
+  --spacing-fluid-xs: clamp(0.5rem, 1vw, 0.75rem);
+  --spacing-fluid-sm: clamp(1rem, 2vw, 1.5rem);
+  --spacing-fluid-md: clamp(2rem, 4vw, 3rem);
+  --spacing-fluid-lg: clamp(4rem, 6vw, 5rem);
+  --spacing-fluid-xl: clamp(6rem, 10vw, 8rem);
+
+  /* --- MOTION SYSTEM --- */
+  --ease-elastic: cubic-bezier(0.5, 1.25, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+
+  /* --- GLASS SYSTEM --- */
+  --backdrop-glass: blur(24px) saturate(180%);
+  --backdrop-glass-heavy: blur(48px) saturate(200%);
+
+  /* Animation Keyframes */
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
   }
 }
 
+:root {
+  /* LIGHT MODE (Engineering Slate) */
+  --background: #f8fafc;
+  /* Slate 50 */
+  --foreground: #0f172a;
+  /* Slate 900 */
+  --surface: #ffffff;
+  --surface-highlight: #f1f5f9;
+  /* Slate 100 */
+  --border: #e2e8f0;
+  /* Slate 200 */
+
+  --glass-surface: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(15, 23, 42, 0.05);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+  --font-outfit: "Outfit", system-ui, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", monospace;
+}
+
+.dark {
+  /* DARK MODE (Deep Space) */
+  --background: #020617;
+  /* Slate 950 (Deep Navy) */
+  --foreground: #f8fafc;
+  /* Slate 50 */
+  --surface: #0f172a;
+  /* Slate 900 */
+  --surface-highlight: #1e293b;
+  /* Slate 800 */
+  --border: #1e293b;
+  /* Slate 800 */
+
+  --glass-surface: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utilities */
+@utility glass-panel {
+  background: var(--glass-surface);
+  backdrop-filter: var(--backdrop-glass);
+  -webkit-backdrop-filter: var(--backdrop-glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@utility glass-card {
+  @apply glass-panel rounded-2xl overflow-hidden transition-all duration-300;
+
+  &:hover {
+    border-color: var(--color-brand-primary);
+    box-shadow: 0 0 20px -5px var(--color-brand-primary);
+    transform: translateY(-2px);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-primary);
+  border-radius: 99px;
+  opacity: 0.5;
 }

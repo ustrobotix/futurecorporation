@@ -35,13 +35,13 @@ function Counter({
     return (
         <div
             ref={ref}
-            className="text-center p-4 sm:p-6 glass-panel rounded-xl group hover:bg-foreground/5 transition-colors"
+            className="text-center p-4 sm:p-6 glass-panel rounded-xl group hover:bg-foreground/5 transition-colors overflow-hidden"
         >
-            <motion.div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-2 font-mono tabular-nums">
+            <motion.div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2 font-mono tabular-nums leading-none">
                 <motion.span>{display}</motion.span>
                 <span className="text-electric-blue">{suffix}</span>
             </motion.div>
-            <p className="text-gray-400 uppercase tracking-widest text-xs sm:text-sm font-medium">
+            <p className="text-gray-400 uppercase tracking-widest text-[0.65rem] sm:text-xs font-medium leading-tight">
                 {label}
             </p>
         </div>

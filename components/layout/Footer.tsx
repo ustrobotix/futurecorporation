@@ -116,7 +116,12 @@ export function Footer() {
                                 id="footer-email"
                                 type="email"
                                 placeholder="Enter your email"
-                                className="bg-surface/50 dark:bg-white/5 border border-border dark:border-white/10 rounded px-3 sm:px-4 py-2 text-sm text-foreground focus:outline-none focus:border-electric-blue w-full"
+                                className="rounded px-3 sm:px-4 py-2 text-sm focus:outline-none focus:border-electric-blue w-full"
+                                style={{
+                                    backgroundColor: 'var(--surface, rgba(241,245,249,0.8))',
+                                    border: '1.5px solid var(--foreground, #0f172a)',
+                                    color: 'var(--foreground)',
+                                }}
                                 required
                             />
                             <button

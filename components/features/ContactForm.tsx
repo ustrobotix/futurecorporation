@@ -151,7 +151,7 @@ export function ContactForm() {
                                         "Initializing Uplink..."
                                     ) : (
                                         <>
-                                            SEND TRANSMISSION <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                            SEND TRANSMISSION <Send size={18} className="transition-transform -rotate-45 group-hover:-translate-y-1 group-hover:translate-x-1" />
                                         </>
                                     )}
                                 </span>

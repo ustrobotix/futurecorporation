@@ -19,7 +19,9 @@ const Hero3D = dynamic(
 
 /**
  * Client-side orchestration: loading screen → hero with 3D.
- * Separated from page.tsx so static sections remain server-rendered.
+ * Hero renders immediately (behind z-[100] loading screen) so its
+ * entrance animations complete before the loading screen fades out,
+ * preventing any visible layout shift or text jump.
  */
 export function HomeClient() {
     const [isLoading, setIsLoading] = useState(true)
@@ -30,15 +32,14 @@ export function HomeClient() {
                 {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
             </AnimatePresence>
 
-            {!isLoading && (
-                <Hero>
-                    <ErrorBoundary fallback={<WebGLFallback />}>
-                        <Suspense fallback={<WebGLFallback />}>
-                            <Hero3D />
-                        </Suspense>
-                    </ErrorBoundary>
-                </Hero>
-            )}
+            {/* Always mounted — animates behind the loading screen */}
+            <Hero>
+                <ErrorBoundary fallback={<WebGLFallback />}>
+                    <Suspense fallback={<WebGLFallback />}>
+                        <Hero3D />
+                    </Suspense>
+                </ErrorBoundary>
+            </Hero>
         </>
     )
 }

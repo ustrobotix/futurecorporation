@@ -76,7 +76,7 @@ function RoboticArm() {
     })
 
     // Responsive positioning: center on mobile, right-offset on desktop
-    const groupPosition: [number, number, number] = isMobile ? [0, -2.5, 0] : [3, -3, 0]
+    const groupPosition: [number, number, number] = isMobile ? [1.5, -2.5, 0] : [3, -3, 0]
     const groupScale = isMobile ? 0.85 : 1
 
     return (
@@ -133,32 +133,47 @@ function RoboticArm() {
 // --- Main Scene ---
 export function Hero3D() {
     const { resolvedTheme } = useTheme()
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768)
+        check()
+        window.addEventListener('resize', check)
+        return () => window.removeEventListener('resize', check)
+    }, [])
 
     return (
-        <div className="absolute inset-0 z-0 bg-transparent min-h-[50vh]">
+        <div className="absolute inset-0 z-0 bg-transparent min-h-[50vh] pointer-events-none">
             <Canvas
-                dpr={[1, 1.25]}
+                dpr={isMobile ? [1, 1] : [1, 1.25]}
                 camera={{ position: [0, 2, 12], fov: 35 }}
-                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+                gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
                 performance={{ min: 0.5 }}
+                frameloop={isMobile ? "demand" : "always"}
+                style={{ pointerEvents: 'none' }}
             >
                 <ResponsiveCamera />
 
                 <ambientLight intensity={0.5} />
-                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
+                <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow={!isMobile} />
                 <pointLight position={[-10, -10, -10]} intensity={0.5} color="#2596be" />
 
-                {/* Subtle Float for the whole assembly */}
-                <Float speed={2} rotationIntensity={0.1} floatIntensity={0.2}>
+                {isMobile ? (
                     <RoboticArm />
-                </Float>
+                ) : (
+                    <Float speed={2} rotationIntensity={0.1} floatIntensity={0.2}>
+                        <RoboticArm />
+                    </Float>
+                )}
 
-                {/* Ground Reflections - reduced resolution for perf */}
-                <ContactShadows resolution={512} scale={20} blur={2.5} opacity={0.5} far={10} color={resolvedTheme === 'dark' ? '#000000' : '#a1a1aa'} />
+                {/* Ground Reflections - skip on mobile */}
+                {!isMobile && (
+                    <ContactShadows resolution={512} scale={20} blur={2.5} opacity={0.5} far={10} color={resolvedTheme === 'dark' ? '#000000' : '#a1a1aa'} />
+                )}
 
-                {/* Environment */}
                 <Environment preset="city" />
             </Canvas>
         </div>
     )
 }
+

@@ -57,7 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                         <span className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,243,255,0.1)]" />
                     </>
                 )}
-                <span className="relative z-10">{children}</span>
+                <span className="relative z-10 flex items-center gap-2">{children}</span>
             </motion.button>
         )
     }

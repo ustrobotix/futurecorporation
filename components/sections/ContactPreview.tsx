@@ -44,7 +44,7 @@ export function ContactPreview() {
                             READY TO{" "}
                             <span className="text-electric-blue">TRANSFORM</span> THE FUTURE?
                         </h2>
-                        <p className="text-black dark:text-gray-400 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-md font-bold">
+                        <p className="text-foreground dark:text-gray-400 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed max-w-md font-bold">
                             Connect with us to discuss partnerships, robotics lab creation, or
                             student training programs.
                         </p>
@@ -52,32 +52,35 @@ export function ContactPreview() {
                         <div className="space-y-4 sm:space-y-6">
                             <a
                                 href="tel:+917319677613"
-                                className="flex items-center gap-3 sm:gap-4 text-black dark:text-gray-300 hover:text-electric-blue transition-colors group font-bold"
+                                className="flex items-center gap-3 sm:gap-4 hover:text-electric-blue transition-colors group font-bold"
+                                style={{ color: 'var(--foreground)' }}
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-black/5 dark:border-white/10 text-black dark:text-white">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-foreground/5 dark:border-white/10" style={{ color: 'var(--foreground)' }}>
                                     <Phone size={18} />
                                 </div>
-                                <span className="text-base sm:text-lg">+91 7319677613</span>
+                                <span className="text-base sm:text-lg" style={{ color: 'inherit' }}>+91 7319677613</span>
                             </a>
                             <a
                                 href="https://wa.me/917319677613"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 sm:gap-4 text-black dark:text-gray-300 hover:text-electric-blue transition-colors group font-bold"
+                                className="flex items-center gap-3 sm:gap-4 hover:text-electric-blue transition-colors group font-bold"
+                                style={{ color: 'var(--foreground)' }}
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-black/5 dark:border-white/10 text-black dark:text-white">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-foreground/5 dark:border-white/10" style={{ color: 'var(--foreground)' }}>
                                     <MessageSquare size={18} />
                                 </div>
-                                <span className="text-base sm:text-lg">WhatsApp Us</span>
+                                <span className="text-base sm:text-lg" style={{ color: 'inherit' }}>WhatsApp Us</span>
                             </a>
                             <a
                                 href="mailto:contact@futurecorp.ai"
-                                className="flex items-center gap-3 sm:gap-4 text-black dark:text-gray-300 hover:text-electric-blue transition-colors group font-bold"
+                                className="flex items-center gap-3 sm:gap-4 hover:text-electric-blue transition-colors group font-bold"
+                                style={{ color: 'var(--foreground)' }}
                             >
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-black/5 dark:border-white/10 text-black dark:text-white">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 glass-panel rounded-full flex items-center justify-center group-hover:border-electric-blue/50 transition-colors shrink-0 group-hover:text-electric-blue border border-foreground/5 dark:border-white/10" style={{ color: 'var(--foreground)' }}>
                                     <Mail size={18} />
                                 </div>
-                                <span className="text-base sm:text-lg">contact@futurecorp.ai</span>
+                                <span className="text-base sm:text-lg" style={{ color: 'inherit' }}>contact@futurecorp.ai</span>
                             </a>
                         </div>
 

@@ -41,7 +41,7 @@ function Counter({
                 <motion.span>{display}</motion.span>
                 <span className="text-electric-blue">{suffix}</span>
             </motion.div>
-            <p className="text-gray-400 uppercase tracking-widest text-[0.65rem] sm:text-xs font-medium leading-tight">
+            <p className="text-gray-600 dark:text-gray-400 uppercase tracking-widest text-[0.65rem] sm:text-xs font-medium leading-tight">
                 {label}
             </p>
         </div>

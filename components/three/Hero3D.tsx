@@ -1,15 +1,36 @@
 "use client"
 
-import React, { useRef, useMemo } from "react"
-import { Canvas, useFrame } from "@react-three/fiber"
+import React, { useRef, useMemo, useEffect, useState } from "react"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Environment, Float, ContactShadows, RoundedBox, Cylinder, Sphere } from "@react-three/drei"
 import { useTheme } from "next-themes"
 import * as THREE from "three"
+
+// --- Responsive Camera Controller ---
+function ResponsiveCamera() {
+    const { camera, size } = useThree()
+
+    useEffect(() => {
+        const isMobile = size.width < 768
+        if (isMobile) {
+            camera.position.set(0, 2, 14)
+                ; (camera as THREE.PerspectiveCamera).fov = 40
+        } else {
+            camera.position.set(0, 2, 12)
+                ; (camera as THREE.PerspectiveCamera).fov = 35
+        }
+        ; (camera as THREE.PerspectiveCamera).updateProjectionMatrix()
+    }, [camera, size.width])
+
+    return null
+}
 
 // --- Robotic Arm Component ---
 function RoboticArm() {
     const { resolvedTheme } = useTheme()
     const isLight = resolvedTheme === "light"
+    const { size } = useThree()
+    const isMobile = size.width < 768
 
     // Materials
     const mainMaterial = useMemo(() => new THREE.MeshStandardMaterial({
@@ -49,14 +70,17 @@ function RoboticArm() {
         }
         // WAVING ANIMATION
         if (headRef.current) {
-            // Faster wave, larger amplitude
             headRef.current.rotation.z = Math.sin(t * 3) * 0.5
             headRef.current.rotation.x = Math.sin(t * 1) * 0.2
         }
     })
 
+    // Responsive positioning: center on mobile, right-offset on desktop
+    const groupPosition: [number, number, number] = isMobile ? [0, -2.5, 0] : [3, -3, 0]
+    const groupScale = isMobile ? 0.85 : 1
+
     return (
-        <group position={[3, -3, 0]} rotation={[0, -0.5, 0]}>
+        <group position={groupPosition} rotation={[0, -0.5, 0]} scale={groupScale}>
             {/* Base */}
             <Cylinder args={[1, 1.2, 0.5, 32]} material={accentMaterial} position={[0, 0.25, 0]} />
             <RoundedBox args={[1.5, 0.2, 1.5]} radius={0.05} smoothness={4} material={mainMaterial} position={[0, 0.1, 0]} />
@@ -111,12 +135,15 @@ export function Hero3D() {
     const { resolvedTheme } = useTheme()
 
     return (
-        <div className="absolute inset-0 z-0 bg-transparent">
+        <div className="absolute inset-0 z-0 bg-transparent min-h-[50vh]">
             <Canvas
-                dpr={[1, 1.5]} /* User req: Max DPR 1.5 */
-                camera={{ position: [0, 2, 12], fov: 35 }} /* Zoomed out, looking slightly down */
-                gl={{ antialias: true, alpha: true }}
+                dpr={[1, 1.25]}
+                camera={{ position: [0, 2, 12], fov: 35 }}
+                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+                performance={{ min: 0.5 }}
             >
+                <ResponsiveCamera />
+
                 <ambientLight intensity={0.5} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
                 <pointLight position={[-10, -10, -10]} intensity={0.5} color="#2596be" />
@@ -126,8 +153,8 @@ export function Hero3D() {
                     <RoboticArm />
                 </Float>
 
-                {/* Ground Reflections */}
-                <ContactShadows resolution={1024} scale={20} blur={2.5} opacity={0.5} far={10} color={resolvedTheme === 'dark' ? '#000000' : '#a1a1aa'} />
+                {/* Ground Reflections - reduced resolution for perf */}
+                <ContactShadows resolution={512} scale={20} blur={2.5} opacity={0.5} far={10} color={resolvedTheme === 'dark' ? '#000000' : '#a1a1aa'} />
 
                 {/* Environment */}
                 <Environment preset="city" />

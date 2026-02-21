@@ -71,7 +71,7 @@ export function Hero({ children }: HeroProps) {
                     >
                         <a href="#contact">
                             <Button size="lg" className="rounded-full px-8 h-14 text-base font-semibold shadow-xl shadow-[#2596be]/20 hover:shadow-[#2596be]/40 transition-shadow bg-[#2596be] text-[#0f172a] hover:bg-[#2596be]/90 border-transparent">
-                                Deploy Solution <ArrowRight className="ml-2 w-5 h-5" />
+                                Deploy Solution <ArrowRight className="w-5 h-5" />
                             </Button>
                         </a>
                         <Button
@@ -79,7 +79,7 @@ export function Hero({ children }: HeroProps) {
                             size="lg"
                             className="rounded-full px-8 h-14 text-base font-semibold border-[#2596be] text-[#2596be] hover:bg-[#2596be] hover:text-white"
                         >
-                            <Play className="mr-2 w-4 h-4 fill-current" /> Watch Showreel
+                            Watch Showreel <Play className="w-4 h-4 fill-current" />
                         </Button>
                     </motion.div>
                 </div>

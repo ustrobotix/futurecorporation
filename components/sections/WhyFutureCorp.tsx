@@ -16,7 +16,7 @@ export function WhyFutureCorp() {
     const prefersReduced = useReducedMotion()
 
     return (
-        <section id="about" className="py-16 sm:py-20 lg:py-24 bg-[#f8fafc] dark:bg-[#0f172a] relative transition-colors duration-300" aria-label="Why Future Corporation">
+        <section id="about" className="py-16 sm:py-20 lg:py-24 bg-background relative transition-colors duration-300" aria-label="Why Future Corporation">
             <div className="container mx-auto px-4 sm:px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
                     {/* Left Col: Text */}
@@ -31,9 +31,9 @@ export function WhyFutureCorp() {
                                 Our Mission
                             </span>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-black dark:text-white mb-4 sm:mb-6 leading-tight">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
                             BUILDING THE <br className="hidden sm:block" />
-                            <span className="text-black dark:text-electric-blue">INNOVATORS</span> OF TOMORROW
+                            <span className="text-foreground dark:text-electric-blue">INNOVATORS</span> OF TOMORROW
                         </h2>
                         <p className="text-slate-900 dark:text-gray-400 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed font-medium">
                             We bridge the gap between theoretical knowledge and real-world

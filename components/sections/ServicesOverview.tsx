@@ -79,7 +79,7 @@ export function ServicesOverview() {
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 sm:mb-6 text-foreground">
                         <span className="text-electric-blue">PIONEERING</span> THE FUTURE
                     </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg px-2">
+                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-base sm:text-lg px-2">
                         We provide a comprehensive ecosystem for robotics and AI education,
                         from lab infrastructure to advanced curriculum.
                     </p>

@@ -23,7 +23,9 @@ export function Navbar() {
     const pathname = usePathname()
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        setIsScrolled(latest > 20)
+        // Threshold band: only update state when crossing boundary to reduce re-renders
+        if (latest > 40 && !isScrolled) setIsScrolled(true)
+        else if (latest < 20 && isScrolled) setIsScrolled(false)
     })
 
     return (
@@ -62,9 +64,10 @@ export function Navbar() {
                                 key={item.name}
                                 href={item.href}
                                 className={cn(
-                                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative hover:text-electric-blue hover:bg-electric-blue/5",
-                                    pathname === item.href ? "text-electric-blue bg-electric-blue/10" : "text-slate-700 dark:text-gray-300"
+                                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative hover:text-electric-blue hover:bg-electric-blue/15 hover:scale-105 hover:shadow-sm",
+                                    pathname === item.href ? "text-electric-blue bg-electric-blue/10" : ""
                                 )}
+                                style={pathname === item.href ? undefined : { color: 'var(--foreground)' }}
                             >
                                 {item.name}
                             </Link>

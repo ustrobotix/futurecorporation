@@ -156,3 +156,15 @@ body {
   border-radius: 99px;
   opacity: 0.5;
 }
+
+/* Performance: GPU acceleration for animated elements */
+.glass-panel,
+.glass-card {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Reduce layout recalculation scope */
+section {
+  contain: layout style;
+}

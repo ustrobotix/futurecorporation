@@ -30,8 +30,8 @@ export function Footer() {
                     {/* Brand Column */}
                     <div className="space-y-6 sm:col-span-2 lg:col-span-1">
                         <Link href="/" className="flex items-center gap-2" aria-label="Future Corporation Home">
-                            <div className="w-8 h-8 bg-electric-blue rounded flex items-center justify-center">
-                                <span className="text-navy-900 font-bold text-sm">FC</span>
+                            <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-white/10 bg-surface shadow-lg">
+                                <img src="/logo.jpg" alt="FC" className="object-cover w-full h-full" />
                             </div>
                             <span className="text-xl font-bold tracking-wider text-foreground">
                                 FUTURE<span className="text-electric-blue">CORP</span>

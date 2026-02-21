@@ -73,8 +73,8 @@ export function ContactForm() {
                             <div className="w-16 h-16 bg-electric-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-electric-blue/20">
                                 <CheckCircle2 className="w-8 h-8 text-electric-blue" />
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                            <p className="text-gray-400 mb-6">Our team is already analyzing your request.</p>
+                            <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
+                            <p className="text-gray-600 dark:text-gray-400 mb-6">Our team is already analyzing your request.</p>
                             <Button
                                 variant="outline"
                                 onClick={() => setFormStatus("idle")}

@@ -76,7 +76,7 @@ function RoboticArm() {
     })
 
     // Responsive positioning: center on mobile, right-offset on desktop
-    const groupPosition: [number, number, number] = isMobile ? [1.5, -2.0, 0] : [3, -3, 0]
+    const groupPosition: [number, number, number] = isMobile ? [1.5, -3.5, 0] : [3, -3, 0]
     const groupScale = isMobile ? 0.75 : 1
 
     return (

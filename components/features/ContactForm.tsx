@@ -38,7 +38,7 @@ export function ContactForm() {
                     >
                         {/* Rocket Animation */}
                         <motion.div
-                            initial={{ y: 100, x: 0, opacity: 0, scale: 0.5, rotate: 45 }}
+                            initial={{ y: 100, x: 0, opacity: 0, scale: 0.5 }}
                             animate={{
                                 y: [100, -300],
                                 x: [0, 300],
@@ -52,15 +52,17 @@ export function ContactForm() {
                             }}
                             className="absolute"
                         >
-                            <Rocket size={80} className="text-electric-blue fill-current" />
-                            {/* Rocket Trail */}
-                            <motion.div
-                                className="w-2 h-20 bg-gradient-to-t from-transparent to-electric-blue mx-auto mt-2 blur-sm origin-top"
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 60, opacity: 1 }}
-                                transition={{ delay: 0.2, duration: 0.5 }}
-                                style={{ transform: "rotate(0deg)" }} // Trail follows rocket
-                            />
+                            <div className="relative">
+                                <Rocket size={80} className="text-electric-blue fill-current" />
+                                {/* Rocket Trail — positioned at thruster (bottom-left of rocket) */}
+                                <motion.div
+                                    className="absolute w-2 h-20 bg-gradient-to-t from-transparent to-electric-blue blur-sm origin-top rotate-45"
+                                    style={{ bottom: -16, left: '50%', marginLeft: -4 }}
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 60, opacity: 1 }}
+                                    transition={{ delay: 0.2, duration: 0.5 }}
+                                />
+                            </div>
                         </motion.div>
 
                         {/* Success Message Reveal (Delay to wait for rocket) */}
@@ -151,7 +153,7 @@ export function ContactForm() {
                                         "Initializing Uplink..."
                                     ) : (
                                         <>
-                                            SEND TRANSMISSION <Send size={18} className="transition-transform -rotate-45 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                                            SEND TRANSMISSION <Send size={18} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
                                         </>
                                     )}
                                 </span>

@@ -13,8 +13,8 @@ function ResponsiveCamera() {
     useEffect(() => {
         const isMobile = size.width < 768
         if (isMobile) {
-            camera.position.set(0, 2, 14)
-                ; (camera as THREE.PerspectiveCamera).fov = 40
+            camera.position.set(0, 1, 13)
+                ; (camera as THREE.PerspectiveCamera).fov = 38
         } else {
             camera.position.set(0, 2, 12)
                 ; (camera as THREE.PerspectiveCamera).fov = 35
@@ -76,8 +76,8 @@ function RoboticArm() {
     })
 
     // Responsive positioning: center on mobile, right-offset on desktop
-    const groupPosition: [number, number, number] = isMobile ? [1.5, -2.5, 0] : [3, -3, 0]
-    const groupScale = isMobile ? 0.85 : 1
+    const groupPosition: [number, number, number] = isMobile ? [1.5, -1.5, 0] : [3, -3, 0]
+    const groupScale = isMobile ? 0.75 : 1
 
     return (
         <group position={groupPosition} rotation={[0, -0.5, 0]} scale={groupScale}>
@@ -145,11 +145,10 @@ export function Hero3D() {
     return (
         <div className="absolute inset-0 z-0 bg-transparent min-h-[50vh] pointer-events-none">
             <Canvas
-                dpr={isMobile ? [1, 1] : [1, 1.25]}
+                dpr={isMobile ? [1, 1.5] : [1, 1.25]}
                 camera={{ position: [0, 2, 12], fov: 35 }}
-                gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
+                gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
                 performance={{ min: 0.5 }}
-                frameloop={isMobile ? "demand" : "always"}
                 style={{ pointerEvents: 'none' }}
             >
                 <ResponsiveCamera />

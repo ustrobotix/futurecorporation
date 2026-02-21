@@ -10,10 +10,14 @@ export function ThemeToggle({ className }: { className?: string }) {
     const { setTheme, resolvedTheme } = useTheme()
     const buttonRef = React.useRef<HTMLButtonElement>(null)
 
-    const handleToggle = () => {
+    const handleToggle = async () => {
         const nextTheme = resolvedTheme === "light" ? "dark" : "light"
 
-        if (!buttonRef.current) {
+        // If View Transitions API is not supported, just switch instantly
+        if (
+            !buttonRef.current ||
+            !(document as any).startViewTransition
+        ) {
             setTheme(nextTheme)
             return
         }
@@ -22,49 +26,52 @@ export function ThemeToggle({ className }: { className?: string }) {
         const x = rect.left + rect.width / 2
         const y = rect.top + rect.height / 2
 
-        // Max radius to cover entire viewport from click point
+        // Max radius to cover entire viewport
         const maxRadius = Math.ceil(
-            Math.sqrt(
-                Math.max(x, window.innerWidth - x) ** 2 +
-                Math.max(y, window.innerHeight - y) ** 2
+            Math.hypot(
+                Math.max(x, window.innerWidth - x),
+                Math.max(y, window.innerHeight - y)
             )
         )
 
-        // Create expanding overlay in the NEW theme color
-        const overlay = document.createElement("div")
-        overlay.style.cssText = `
-            position: fixed;
-            inset: 0;
-            z-index: 55;
-            pointer-events: none;
-            background-color: ${nextTheme === "dark" ? "#0f172a" : "#f8fafc"};
-            clip-path: circle(0px at ${x}px ${y}px);
-            transition: clip-path 500ms cubic-bezier(0.4, 0, 0.2, 1);
+        // Inject dynamic keyframes for the circle expansion from the button position
+        const styleId = "theme-transition-style"
+        let styleEl = document.getElementById(styleId) as HTMLStyleElement | null
+        if (!styleEl) {
+            styleEl = document.createElement("style")
+            styleEl.id = styleId
+            document.head.appendChild(styleEl)
+        }
+        styleEl.textContent = `
+            ::view-transition-old(root),
+            ::view-transition-new(root) {
+                animation: none;
+                mix-blend-mode: normal;
+            }
+            ::view-transition-old(root) {
+                z-index: 1;
+            }
+            ::view-transition-new(root) {
+                z-index: 9999;
+                clip-path: circle(0px at ${x}px ${y}px);
+                animation: themeExpand 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+            @keyframes themeExpand {
+                to {
+                    clip-path: circle(${maxRadius}px at ${x}px ${y}px);
+                }
+            }
         `
-        document.body.appendChild(overlay)
 
-        // Start expansion
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                overlay.style.clipPath = `circle(${maxRadius}px at ${x}px ${y}px)`
-            })
+        // Start the view transition — browser captures old state, we switch theme, then it animates
+        const transition = (document as any).startViewTransition(() => {
+            setTheme(nextTheme)
         })
 
-        // Switch theme while overlay covers everything (no blank flash)
-        setTimeout(() => {
-            setTheme(nextTheme)
-        }, 300)
-
-        // Fade out overlay after theme has applied
-        setTimeout(() => {
-            overlay.style.transition = "opacity 200ms ease-out"
-            overlay.style.opacity = "0"
-        }, 550)
-
-        // Remove overlay
-        setTimeout(() => {
-            overlay.remove()
-        }, 800)
+        // Clean up the style after animation finishes
+        transition.finished.then(() => {
+            styleEl?.remove()
+        })
     }
 
     return (
